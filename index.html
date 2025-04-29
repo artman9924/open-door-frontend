@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Open Door</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome to Open Door</h1>
+      <p>You are not alone. Choose a path:</p>
+
+      <div class="button-group">
+        <button onclick="goToPost()">Post a Message</button>
+        <button onclick="goToRead()">Read Messages</button>
+        <button onclick="window.location.href='about.html'">
+          About Open Door
+        </button>
+      </div>
+
+      <div id="loading-spinner" style="display: none">
+        <p>Loading messages...</p>
+      </div>
+
+      <div id="messages-container"></div>
+
+      <div id="postForm" style="display: none; margin-top: 30px">
+        <h2>Share Your Message</h2>
+        <textarea
+          id="messageInput"
+          placeholder="What's on your mind?"
+          rows="6"
+          style="width: 80%; padding: 10px"
+        ></textarea
+        ><br /><br />
+        <button onclick="submitMessage()">Submit</button>
+        <button onclick="cancelPost()" style="background-color: grey">
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+    <footer class="footer">
+      <p>© 2025 Open Door. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

@@ -116,3 +116,17 @@ button:hover {
     font-size: 0.75rem;
   }
 }
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1 {
+  animation: fadeSlide 1s ease-out;
+}

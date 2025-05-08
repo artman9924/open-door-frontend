@@ -40,7 +40,12 @@ function submitMessage() {
     },
     body: JSON.stringify({ content: message }),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Server error: " + response.status);
+      }
+      return response.json();
+    })
     .then((data) => {
       alert("Your message has been sent!");
       document.getElementById("messageInput").value = "";

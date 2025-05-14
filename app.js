@@ -132,6 +132,15 @@ function goToRead() {
         messageCard.appendChild(timestamp);
         messageCard.appendChild(messageText);
 
+        if (msg.reactions && msg.reactions.trim() !== "") {
+          const reactionDisplay = document.createElement("div");
+          reactionDisplay.textContent = `Reacted: ${msg.reactions}`;
+          reactionDisplay.style.marginTop = "8px";
+          reactionDisplay.style.color = "#666";
+          reactionDisplay.style.fontSize = "0.9em";
+          messageCard.appendChild(reactionDisplay);
+        }
+
         // Add card to messages-container
         container.appendChild(messageCard);
       });

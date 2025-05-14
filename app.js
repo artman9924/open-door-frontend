@@ -133,12 +133,34 @@ function goToRead() {
         messageCard.appendChild(messageText);
 
         if (msg.reactions && msg.reactions.trim() !== "") {
-          const reactionDisplay = document.createElement("div");
-          reactionDisplay.textContent = `Reacted: ${msg.reactions}`;
-          reactionDisplay.style.marginTop = "8px";
-          reactionDisplay.style.color = "#666";
-          reactionDisplay.style.fontSize = "0.9em";
-          messageCard.appendChild(reactionDisplay);
+          if (msg.reactions && msg.reactions.trim() !== "") {
+            const reactionDisplay = document.createElement("div");
+            reactionDisplay.style.display = "flex";
+            reactionDisplay.style.gap = "6px";
+            reactionDisplay.style.marginTop = "8px";
+            reactionDisplay.style.alignItems = "center";
+            reactionDisplay.style.flexWrap = "wrap";
+
+            const label = document.createElement("span");
+            label.textContent = "Reactions:";
+            label.style.fontWeight = "bold";
+            label.style.color = "#555";
+            label.style.fontSize = "0.9em";
+            reactionDisplay.appendChild(label);
+
+            [...msg.reactions.trim()].forEach((emoji) => {
+              const emojiTag = document.createElement("span");
+              emojiTag.textContent = emoji;
+              emojiTag.style.fontSize = "1.1em";
+              emojiTag.style.padding = "2px 6px";
+              emojiTag.style.borderRadius = "8px";
+              emojiTag.style.background = "#f0f0f0";
+              emojiTag.style.boxShadow = "inset 0 0 3px rgba(0,0,0,0.05)";
+              reactionDisplay.appendChild(emojiTag);
+            });
+
+            messageCard.appendChild(reactionDisplay);
+          }
         }
 
         // Add card to messages-container

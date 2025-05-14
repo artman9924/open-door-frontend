@@ -9,7 +9,7 @@ function cancelPost() {
 // const BASE_URL = "http://127.0.0.1:5000"; // local version
 const BASE_URL = "https://open-door-backend.onrender.com"; // live version
 function formatTimestamp(timestamp) {
-  const messageTime = new Date(timestamp + " UTC");
+  const messageTime = new Date(timestamp.replace(" ", "T") + "Z");
   const now = new Date();
   const diffMs = now - messageTime;
   const diffMinutes = Math.floor(diffMs / 60000);
@@ -110,6 +110,11 @@ function goToRead() {
           btn.style.padding = "4px 8px";
           btn.style.whiteSpace = "nowrap";
           btn.onclick = () => {
+            const reactionKey = `reacted-${msg.id}-${emoji}`;
+            if (localStorage.getItem(reactionKey)) {
+              alert("You already sent this reaction.");
+              return;
+            }
             fetch(`${BASE_URL}/react/${msg.id}`, {
               method: "POST",
               headers: {
@@ -120,6 +125,7 @@ function goToRead() {
               .then((res) => res.json())
               .then((data) => {
                 alert("Reaction sent!");
+                localStorage.setItem(reactionKey, "true");
               })
               .catch(() => alert("Could not send reaction"));
           };
@@ -132,40 +138,41 @@ function goToRead() {
         messageCard.appendChild(timestamp);
         messageCard.appendChild(messageText);
 
-        if (msg.reactions && msg.reactions.trim() !== "") {
-          if (msg.reactions && msg.reactions.trim() !== "") {
-            const reactionDisplay = document.createElement("div");
-            reactionDisplay.style.display = "flex";
-            reactionDisplay.style.gap = "6px";
-            reactionDisplay.style.marginTop = "8px";
-            reactionDisplay.style.alignItems = "center";
-            reactionDisplay.style.flexWrap = "wrap";
+        if (msg.reactions) {
+          const reactionDisplay = document.createElement("div");
+          reactionDisplay.style.display = "flex";
+          reactionDisplay.style.gap = "8px";
+          reactionDisplay.style.marginTop = "10px";
+          reactionDisplay.style.flexWrap = "wrap";
 
-            const label = document.createElement("span");
-            label.textContent = "Reactions:";
-            label.style.fontWeight = "bold";
-            label.style.color = "#555";
-            label.style.fontSize = "0.9em";
-            reactionDisplay.appendChild(label);
+          const label = document.createElement("span");
+          label.textContent = "Reactions:";
+          label.style.fontWeight = "bold";
+          label.style.fontSize = "0.9em";
+          reactionDisplay.appendChild(label);
 
-            [...msg.reactions.trim()].forEach((emoji) => {
-              const emojiTag = document.createElement("span");
-              emojiTag.textContent = emoji;
-              emojiTag.style.fontSize = "1.1em";
-              emojiTag.style.padding = "2px 6px";
-              emojiTag.style.borderRadius = "8px";
-              emojiTag.style.background = "#f0f0f0";
-              emojiTag.style.boxShadow = "inset 0 0 3px rgba(0,0,0,0.05)";
-              reactionDisplay.appendChild(emojiTag);
+          try {
+            const reactionData = JSON.parse(msg.reactions);
+            Object.entries(reactionData).forEach(([emoji, count]) => {
+              const tag = document.createElement("span");
+              tag.textContent = `${emoji} ${count}`;
+              tag.style.fontSize = "1.1em";
+              tag.style.padding = "2px 8px";
+              tag.style.borderRadius = "8px";
+              tag.style.background = "#eee";
+              tag.style.boxShadow = "inset 0 0 3px rgba(0,0,0,0.05)";
+              reactionDisplay.appendChild(tag);
             });
-
-            messageCard.appendChild(reactionDisplay);
+          } catch (err) {
+            console.error("Invalid reactions format", err);
           }
-        }
 
-        // Add card to messages-container
-        container.appendChild(messageCard);
+          messageCard.appendChild(reactionDisplay);
+        }
       });
+
+      // Add card to messages-container
+      container.appendChild(messageCard);
 
       const backButton = document.createElement("button");
       backButton.textContent = "Back to Home";

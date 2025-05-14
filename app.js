@@ -96,12 +96,19 @@ function goToRead() {
 
         const reactionRow = document.createElement("div");
         reactionRow.style.marginTop = "10px";
+        reactionRow.style.display = "flex";
+        reactionRow.style.flexWrap = "nowrap";
+        reactionRow.style.gap = "8px";
+        reactionRow.style.justifyContent = "flex-start";
+        reactionRow.style.overflowX = "auto";
 
         ["💛", "🙏", "🌱"].forEach((emoji) => {
           const btn = document.createElement("button");
           btn.textContent = emoji;
           btn.style.marginRight = "8px";
           btn.style.fontSize = "1.2em";
+          btn.style.padding = "4px 8px";
+          btn.style.whiteSpace = "nowrap";
           btn.onclick = () => {
             fetch(`${BASE_URL}/react/${msg.id}`, {
               method: "POST",

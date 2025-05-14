@@ -94,6 +94,33 @@ function goToRead() {
         messageText.style.marginTop = "10px";
         messageText.textContent = msg.content;
 
+        const reactionRow = document.createElement("div");
+        reactionRow.style.marginTop = "10px";
+
+        ["💛", "🙏", "🌱"].forEach((emoji) => {
+          const btn = document.createElement("button");
+          btn.textContent = emoji;
+          btn.style.marginRight = "8px";
+          btn.style.fontSize = "1.2em";
+          btn.onclick = () => {
+            fetch(`${BASE_URL}/react/${msg.id}`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ emoji }),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                alert("Reaction sent!");
+              })
+              .catch(() => alert("Could not send reaction"));
+          };
+          reactionRow.appendChild(btn);
+        });
+
+        messageCard.appendChild(reactionRow);
+
         // Attach to message card
         messageCard.appendChild(timestamp);
         messageCard.appendChild(messageText);

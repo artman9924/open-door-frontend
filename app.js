@@ -1,3 +1,22 @@
+// 🕊️ Anonymous Account System — Open Door
+
+function generateAnonId() {
+  return (
+    "anon-" + Math.random().toString(36).substring(2) + Date.now().toString(36)
+  );
+}
+
+if (!localStorage.getItem("openDoorUserId")) {
+  const anonId = generateAnonId();
+  localStorage.setItem("openDoorUserId", anonId);
+  console.log("New anonymous ID created:", anonId);
+} else {
+  console.log(
+    "Existing anonymous ID found:",
+    localStorage.getItem("openDoorUserId")
+  );
+}
+
 // Emoji reaction system – client-side only, session-based
 function createEmojiBar(messageId, emojiList = ["💖", "🙏", "🌱", "🌙"]) {
   const emojiBar = document.createElement("div");
@@ -125,10 +144,10 @@ function goToRead() {
         // Message content
         // Attach to message card
         messageCard.appendChild(timestamp);
-const messageText = document.createElement("p");
-messageText.style.fontSize = "1.2em";
-messageText.style.marginTop = "10px";
-messageText.textContent = msg.content;
+        const messageText = document.createElement("p");
+        messageText.style.fontSize = "1.2em";
+        messageText.style.marginTop = "10px";
+        messageText.textContent = msg.content;
 
         messageCard.appendChild(messageText);
 

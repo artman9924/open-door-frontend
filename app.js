@@ -1,3 +1,37 @@
+// Emoji reaction system – client-side only, session-based
+function createEmojiBar(messageId, emojiList = ["💖", "🙏", "🌱", "🌙"]) {
+  const emojiBar = document.createElement("div");
+  emojiBar.className = "emoji-bar";
+
+  emojiList.forEach((emoji) => {
+    const btn = document.createElement("button");
+    btn.className = "emoji-button";
+    btn.textContent = emoji;
+
+    // Check sessionStorage for prior reaction
+    const sessionKey = `reaction-${messageId}-${emoji}`;
+    if (sessionStorage.getItem(sessionKey)) {
+      btn.classList.add("reacted");
+    }
+
+    btn.addEventListener("click", () => {
+      const alreadyReacted = sessionStorage.getItem(sessionKey);
+
+      if (alreadyReacted) {
+        sessionStorage.removeItem(sessionKey);
+        btn.classList.remove("reacted");
+      } else {
+        sessionStorage.setItem(sessionKey, "true");
+        btn.classList.add("reacted");
+      }
+    });
+
+    emojiBar.appendChild(btn);
+  });
+
+  return emojiBar;
+}
+
 function goToPost() {
   document.querySelector(".button-group").style.display = "none";
   document.getElementById("postForm").style.display = "block";

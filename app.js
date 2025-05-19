@@ -123,44 +123,6 @@ function goToRead() {
         }
 
         // Message content
-        const messageText = document.createElement("p");
-        messageText.style.fontSize = "1.2em";
-        messageText.style.marginTop = "10px";
-        messageText.textContent = msg.content;
-
-        const reactionRow = document.createElement("div");
-        reactionRow.style.marginTop = "10px";
-        reactionRow.style.display = "flex";
-        reactionRow.style.flexWrap = "nowrap";
-        reactionRow.style.gap = "8px";
-        reactionRow.style.justifyContent = "flex-start";
-        reactionRow.style.overflowX = "auto";
-
-        ["💛", "🙏", "🌱"].forEach((emoji) => {
-          const btn = document.createElement("button");
-          btn.textContent = emoji;
-          btn.style.marginRight = "8px";
-          btn.style.fontSize = "1.2em";
-          btn.style.padding = "4px 8px";
-          btn.style.whiteSpace = "nowrap";
-          btn.onclick = () => {
-            const reactionKey = `reacted-${msg.id}-${emoji}`;
-            const alreadyReacted = sessionStorage.getItem(reactionKey);
-
-            if (alreadyReacted) {
-              sessionStorage.removeItem(reactionKey);
-              btn.classList.remove("reacted");
-            } else {
-              sessionStorage.setItem(reactionKey, "true");
-              btn.classList.add("reacted");
-            }
-          };
-
-          reactionRow.appendChild(btn);
-        });
-
-        messageCard.appendChild(reactionRow);
-
         // Attach to message card
         messageCard.appendChild(timestamp);
         messageCard.appendChild(messageText);

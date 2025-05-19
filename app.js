@@ -134,6 +134,16 @@ function showGentleWelcome() {
     welcome.style.opacity = "1";
   }, 300);
 }
+
+// Show Favorites toggle
+let showingFavorites = localStorage.getItem("od_showingFavorites") === "true";
+
+filterToggle.onclick = () => {
+  showingFavorites = !showingFavorites;
+  localStorage.setItem("od_showingFavorites", showingFavorites);
+  goToRead();
+};
+
 function goToRead() {
   document.getElementById("postForm").style.display = "none";
   document.getElementById("messages-container").innerHTML = ""; // Clear old messages
@@ -152,7 +162,9 @@ function goToRead() {
 
       // View Favorites button
       const filterToggle = document.createElement("button");
-      filterToggle.textContent = "🔍 View Favorites Only";
+      filterToggle.textContent = showingFavorites
+        ? "📜 Show All Messages"
+        : "🔍 View Favorites Only";
       filterToggle.style.margin = "10px 0";
       filterToggle.style.padding = "6px 12px";
       filterToggle.style.border = "1px solid #ccc";
@@ -161,15 +173,10 @@ function goToRead() {
       filterToggle.style.cursor = "pointer";
       filterToggle.style.fontSize = "0.9em";
 
-      let showingFavorites = false;
-
-      filterToggle.onclick = () => {
+      filterToggle.addEventListener("click", () => {
         showingFavorites = !showingFavorites;
-        filterToggle.textContent = showingFavorites
-          ? "📜 Show All Messages"
-          : "🔍 View Favorites Only";
-        goToRead(); // Reload the filtered view
-      };
+        goToRead(); // re-renders view
+      });
 
       container.appendChild(filterToggle);
 

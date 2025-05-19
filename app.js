@@ -166,6 +166,7 @@ function goToRead() {
       filterToggle.style.background = "#f8f8f8";
       filterToggle.style.cursor = "pointer";
       filterToggle.style.fontSize = "0.9em";
+      filterToggle.style.color = "666";
 
       filterToggle.addEventListener("click", () => {
         showingFavorites = !showingFavorites;

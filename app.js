@@ -145,24 +145,17 @@ function goToRead() {
           btn.style.whiteSpace = "nowrap";
           btn.onclick = () => {
             const reactionKey = `reacted-${msg.id}-${emoji}`;
-            if (localStorage.getItem(reactionKey)) {
-              alert("You already sent this reaction.");
-              return;
+            const alreadyReacted = sessionStorage.getItem(reactionKey);
+
+            if (alreadyReacted) {
+              sessionStorage.removeItem(reactionKey);
+              btn.classList.remove("reacted");
+            } else {
+              sessionStorage.setItem(reactionKey, "true");
+              btn.classList.add("reacted");
             }
-            fetch(`${BASE_URL}/react/${msg.id}`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ emoji }),
-            })
-              .then((res) => res.json())
-              .then((data) => {
-                alert("Reaction sent!");
-                localStorage.setItem(reactionKey, "true");
-              })
-              .catch(() => alert("Could not send reaction"));
           };
+
           reactionRow.appendChild(btn);
         });
 

@@ -164,6 +164,33 @@ function goToRead() {
         } else {
           timestamp.innerHTML = "<strong>Posted:</strong> Unknown time";
         }
+        // Favorite button
+        const favBtn = document.createElement("button");
+        favBtn.textContent = "★ Save";
+        favBtn.style.fontSize = "0.9em";
+        favBtn.style.marginTop = "6px";
+        favBtn.style.background = "none";
+        favBtn.style.border = "none";
+        favBtn.style.cursor = "pointer";
+        favBtn.style.color = "#888";
+
+        const favKey = `favorite-${msg.id}`;
+        if (localStorage.getItem(favKey)) {
+          favBtn.textContent = "★ Saved";
+          favBtn.style.color = "#f5b301";
+        }
+
+        favBtn.onclick = () => {
+          if (localStorage.getItem(favKey)) {
+            localStorage.removeItem(favKey);
+            favBtn.textContent = "★ Save";
+            favBtn.style.color = "#888";
+          } else {
+            localStorage.setItem(favKey, "true");
+            favBtn.textContent = "★ Saved";
+            favBtn.style.color = "#f5b301";
+          }
+        };
 
         // Message content
         // Attach to message card
@@ -174,6 +201,7 @@ function goToRead() {
         messageText.textContent = msg.content;
 
         messageCard.appendChild(messageText);
+        messageCard.appendChild(favBtn);
 
         if (msg.reactions) {
           const reactionDisplay = document.createElement("div");

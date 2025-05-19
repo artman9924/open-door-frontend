@@ -110,6 +110,30 @@ function submitMessage() {
       alert("Error connecting to the server.");
     });
 }
+function showGentleWelcome() {
+  const userId = localStorage.getItem("openDoorUserId");
+  if (!userId) return;
+
+  const welcome = document.createElement("div");
+  welcome.textContent = "Welcome back, gentle soul.";
+  welcome.style.fontSize = "1.1em";
+  welcome.style.fontStyle = "italic";
+  welcome.style.color = "#666";
+  welcome.style.margin = "12px 0";
+  welcome.style.padding = "8px";
+  welcome.style.textAlign = "center";
+  welcome.style.opacity = "0";
+  welcome.style.transition = "opacity 1.5s ease";
+
+  const container =
+    document.getElementById("messages-container") || document.body;
+  container.prepend(welcome);
+
+  // Fade in gently
+  setTimeout(() => {
+    welcome.style.opacity = "1";
+  }, 300);
+}
 function goToRead() {
   document.getElementById("postForm").style.display = "none";
   document.getElementById("messages-container").innerHTML = ""; // Clear old messages
@@ -191,6 +215,8 @@ function goToRead() {
       backButton.style.marginTop = "20px";
       backButton.onclick = () => window.location.reload();
       container.appendChild(backButton);
+
+      showGentleWelcome();
     })
     .catch((error) => {
       document.getElementById("loading-spinner").style.display = "none";

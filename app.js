@@ -125,6 +125,11 @@ function goToRead() {
         // Message content
         // Attach to message card
         messageCard.appendChild(timestamp);
+const messageText = document.createElement("p");
+messageText.style.fontSize = "1.2em";
+messageText.style.marginTop = "10px";
+messageText.textContent = msg.content;
+
         messageCard.appendChild(messageText);
 
         if (msg.reactions) {

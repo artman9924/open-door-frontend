@@ -138,12 +138,6 @@ function showGentleWelcome() {
 // Show Favorites toggle
 let showingFavorites = localStorage.getItem("od_showingFavorites") === "true";
 
-filterToggle.onclick = () => {
-  showingFavorites = !showingFavorites;
-  localStorage.setItem("od_showingFavorites", showingFavorites);
-  goToRead();
-};
-
 function goToRead() {
   document.getElementById("postForm").style.display = "none";
   document.getElementById("messages-container").innerHTML = ""; // Clear old messages
@@ -175,6 +169,7 @@ function goToRead() {
 
       filterToggle.addEventListener("click", () => {
         showingFavorites = !showingFavorites;
+        localStorage.setItem("od_showingFavorites", showingFavorites);
         goToRead(); // re-renders view
       });
 

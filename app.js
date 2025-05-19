@@ -203,10 +203,9 @@ function goToRead() {
 
           messageCard.appendChild(reactionDisplay);
         }
+        // Add card to messages-container
+        container.appendChild(messageCard);
       });
-
-      // Add card to messages-container
-      container.appendChild(messageCard);
 
       const backButton = document.createElement("button");
       backButton.textContent = "Back to Home";

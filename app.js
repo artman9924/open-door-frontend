@@ -150,7 +150,34 @@ function goToRead() {
       title.textContent = "Messages Shared on Open Door";
       container.appendChild(title);
 
+      // View Favorites button
+      const filterToggle = document.createElement("button");
+      filterToggle.textContent = "🔍 View Favorites Only";
+      filterToggle.style.margin = "10px 0";
+      filterToggle.style.padding = "6px 12px";
+      filterToggle.style.border = "1px solid #ccc";
+      filterToggle.style.borderRadius = "8px";
+      filterToggle.style.background = "#f8f8f8";
+      filterToggle.style.cursor = "pointer";
+      filterToggle.style.fontSize = "0.9em";
+
+      let showingFavorites = false;
+
+      filterToggle.onclick = () => {
+        showingFavorites = !showingFavorites;
+        filterToggle.textContent = showingFavorites
+          ? "📜 Show All Messages"
+          : "🔍 View Favorites Only";
+        goToRead(); // Reload the filtered view
+      };
+
+      container.appendChild(filterToggle);
+
+      // View messages, default or favorites
       messages.forEach((msg, index) => {
+        const favKey = `favorite-${msg.id}`;
+        if (showingFavorites && !localStorage.getItem(favKey)) return;
+
         const messageCard = document.createElement("div");
         messageCard.className = "message-card";
 
@@ -174,7 +201,6 @@ function goToRead() {
         favBtn.style.cursor = "pointer";
         favBtn.style.color = "#888";
 
-        const favKey = `favorite-${msg.id}`;
         if (localStorage.getItem(favKey)) {
           favBtn.textContent = "★ Saved";
           favBtn.style.color = "#f5b301";

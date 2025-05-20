@@ -154,8 +154,8 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((messages) => {
         document.getElementById("loading-spinner").style.display = "none"; // Hide spinner once loaded
         document.getElementById("read-section").style.display = "block";
-        document.getElementById("post-section").style.display = "none";
-        document.getElementById("about-section").style.display = "none";
+        document.getElementById("postForm").style.display = "none";
+        // document.getElementById("about-section").style.display = "none"; // using about.html instead
         document.getElementById("back-button").style.display = "block";
         const container = document.getElementById("messages-container");
         container.innerHTML = ""; // Clear old content

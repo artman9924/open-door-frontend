@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let selectedMood = null; //
 
-  function goToPost() {
+  window.goToPost = function () {
     document.querySelector(".button-group").style.display = "none";
     document.getElementById("postForm").style.display = "block";
 
@@ -54,12 +54,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       form.insertBefore(moodBar, textarea);
     }
-  }
+  };
 
-  function cancelPost() {
+  window.cancelPost = function () {
     document.getElementById("postForm").style.display = "none";
     document.querySelector(".button-group").style.display = "block";
-  }
+  };
   // const BASE_URL = "http://127.0.0.1:5000"; // local version
   const BASE_URL = "https://open-door-backend.onrender.com"; // live version
   function formatTimestamp(timestamp) {
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (diffDays === 1) return "1 day ago";
     return `${diffDays} days ago`;
   }
-  function submitMessage() {
+  window.submitMessage = function () {
     const message = document.getElementById("messageInput").value;
 
     if (message.trim() === "") {
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error:", error);
         alert("Error connecting to the server.");
       });
-  }
+  };
   // Show welcome message when reading messages
   function showGentleWelcome() {
     const userId = localStorage.getItem("openDoorUserId");
@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let showingFavorites = localStorage.getItem("od_showingFavorites") === "true";
 
   // Read Messages
-  function goToRead() {
+  window.goToRead = function () {
     // document.getElementById("postForm").style.display = "none"; // unneccessary?
     document.getElementById("messages-container").innerHTML = ""; // Clear old messages
     document.getElementById("loading-spinner").style.display = "block"; // Show loading spinner
@@ -300,5 +300,5 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error fetching messages:", error);
         alert("Couldn't load messages. Please try again.");
       });
-  }
+  };
 });

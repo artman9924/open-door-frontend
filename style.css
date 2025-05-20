@@ -130,41 +130,6 @@ button:hover {
 h1 {
   animation: fadeSlide 1s ease-out;
 }
-/* Mood Selector  */
-.mood-bar {
-  margin-bottom: 10px;
-  font-size: 1em;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.mood-emoji {
-  font-size: 1.5em;
-  width: 2.5rem;
-  height: 2.5rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 1;
-}
-
-.mood-emoji.selected {
-  transform: scale(1.2);
-  border: 2px solid #888;
-  border-radius: 6px;
-  z-index: 1;
-}
-
-.mood-emoji:not(.selected) {
-  transform: scale(0.9);
-  opacity: 0.7;
-}
 
 .filter-toggle {
   margin: 10px 0;
@@ -196,17 +161,49 @@ h1 {
   max-width: 100%;
   box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.05);
 }
-/* === Responsive Fixes for Mood Emoji Bar === */
-@media (max-width: 350px) {
+/* === Emoji Layout in Mood Selector === */
+.mood-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 10px;
+  max-width: 100%;
+}
+
+.mood-emoji {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 2.5rem; /* Prevent scaling from shifting layout */
+  box-sizing: border-box;
+}
+
+.mood-emoji.selected {
+  transform: scale(1.2);
+  border: 2px solid #888;
+  border-radius: 6px;
+  z-index: 1;
+}
+
+.mood-emoji:not(.selected) {
+  transform: scale(0.9);
+  opacity: 0.7;
+}
+
+/* Small-screen fix for awkward wrapping */
+@media (max-width: 400px) {
   .mood-bar {
     flex-wrap: nowrap;
     overflow-x: auto;
     justify-content: flex-start;
-  }
-
-  .mood-emoji {
-    width: 2.2rem;
-    height: 2.2rem;
-    font-size: 1.3rem;
+    padding-bottom: 0.5rem;
   }
 }

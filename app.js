@@ -163,7 +163,30 @@ function goToRead() {
         ? "📜 Show All Messages"
         : "🔍 View Favorites Only";
       filterToggle.className = "filter-toggle";
+
       filterToggle.addEventListener("click", () => {
+        if (!showingFavorites) {
+          // Check if user has any favorites saved
+          const hasFavorites = Object.keys(localStorage).some((key) =>
+            key.startsWith("favorite-")
+          );
+
+          if (!hasFavorites) {
+            const notice = document.createElement("div");
+            notice.textContent =
+              "You haven’t saved any favorites yet. Showing all messages instead.";
+            notice.className = "soft-notice";
+
+            const container =
+              document.getElementById("messages-container") || document.body;
+            container.prepend(notice);
+
+            setTimeout(() => notice.remove(), 5000);
+            return;
+          }
+        }
+
+        // Toggle mode and update state
         showingFavorites = !showingFavorites;
         localStorage.setItem("od_showingFavorites", showingFavorites);
         goToRead(); // re-renders view

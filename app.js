@@ -145,158 +145,122 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Read Messages
   window.goToRead = function () {
-    // document.getElementById("postForm").style.display = "none"; // unneccessary?
-    document.getElementById("messages-container").innerHTML = ""; // Clear old messages
-    document.getElementById("loading-spinner").style.display = "block"; // Show loading spinner
+    const buttonGroup = document.querySelector(".button-group");
+    const postForm = document.getElementById("postForm");
+    const readSection = document.getElementById("read-section");
+    const spinner = document.getElementById("loading-spinner");
+    const backButton = document.getElementById("back-button");
 
+    // Hide other UI parts
+    if (buttonGroup) buttonGroup.style.display = "none";
+    if (postForm) postForm.style.display = "none";
+    if (readSection) readSection.style.display = "block";
+    if (spinner) spinner.style.display = "block";
+    if (backButton) backButton.style.display = "block";
+
+    // Clear previous messages
+    const container = document.getElementById("messages-container");
+    if (container) container.innerHTML = "";
+
+    // Fetch and display messages
     fetch(`${BASE_URL}/get-messages`)
       .then((response) => response.json())
       .then((messages) => {
-        document.getElementById("loading-spinner").style.display = "none"; // Hide spinner once loaded
-        document.getElementById("read-section").style.display = "block";
-        document.getElementById("postForm").style.display = "none";
-        // document.getElementById("about-section").style.display = "none"; // using about.html instead
-        document.getElementById("back-button").style.display = "block";
-        const container = document.getElementById("messages-container");
-        container.innerHTML = ""; // Clear old content
+        if (spinner) spinner.style.display = "none";
+        if (container) {
+          container.innerHTML = "";
 
-        const title = document.createElement("h1");
-        title.textContent = "Messages Shared on Open Door";
-        container.appendChild(title);
+          const title = document.createElement("h1");
+          title.textContent = "Messages Shared on Open Door";
+          container.appendChild(title);
 
-        // View Favorites button
-        const filterToggle = document.createElement("button");
-        filterToggle.textContent = showingFavorites
-          ? "📜 Show All Messages"
-          : "🔍 View Favorites Only";
-        filterToggle.className = "filter-toggle";
+          // View Favorites button
+          const filterToggle = document.createElement("button");
+          filterToggle.textContent = showingFavorites
+            ? "📜 Show All Messages"
+            : "🔍 View Favorites Only";
+          filterToggle.className = "filter-toggle";
+          container.appendChild(filterToggle);
 
-        filterToggle.addEventListener("click", () => {
-          if (!showingFavorites) {
-            // Check if user has any favorites saved
-            const hasFavorites = Object.keys(localStorage).some((key) =>
-              key.startsWith("favorite-")
-            );
+          filterToggle.addEventListener("click", () => {
+            //scanned
+            if (!showingFavorites) {
+              const hasFavorites = Object.keys(localStorage).some((key) =>
+                key.startsWith("favorite-")
+              );
 
-            if (!hasFavorites) {
-              const notice = document.createElement("div");
-              notice.textContent =
-                "You haven’t saved any favorites yet. Showing all messages instead.";
-              notice.className = "soft-notice";
+              if (!hasFavorites) {
+                const notice = document.createElement("div");
+                notice.textContent =
+                  "You haven’t saved any favorites yet. Showing all messages instead.";
+                notice.className = "soft-notice";
 
-              const container =
-                document.getElementById("messages-container") || document.body;
-              container.prepend(notice);
-
-              setTimeout(() => notice.remove(), 5000);
-              return;
-            }
-          }
-
-          // Toggle mode and update state
-          showingFavorites = !showingFavorites;
-          localStorage.setItem("od_showingFavorites", showingFavorites);
-          goToRead(); // re-renders view
-        });
-
-        container.appendChild(filterToggle);
-
-        // View messages, default or favorites
-        messages.forEach((msg, index) => {
-          const favKey = `favorite-${msg.id}`;
-          if (showingFavorites && !localStorage.getItem(favKey)) return;
-
-          const messageCard = document.createElement("div");
-          messageCard.className = "message-card";
-
-          // Timestamp
-          const timestamp = document.createElement("p");
-          timestamp.className = "timestamp";
-          if (msg.timestamp) {
-            timestamp.innerHTML = `<strong>Posted:</strong> ${formatTimestamp(
-              msg.timestamp
-            )}`;
-          } else {
-            timestamp.innerHTML = "<strong>Posted:</strong> Unknown time";
-          }
-          // Favorite button
-          const favBtn = document.createElement("button");
-          favBtn.textContent = "★ Save";
-          favBtn.className = "fav-btn";
-
-          if (localStorage.getItem(favKey)) {
-            favBtn.textContent = "★ Saved";
-            favBtn.style.color = "#f5b301";
-          }
-
-          favBtn.onclick = () => {
-            if (localStorage.getItem(favKey)) {
-              localStorage.removeItem(favKey);
-              favBtn.textContent = "★ Save";
-              favBtn.style.color = "#888";
-            } else {
-              localStorage.setItem(favKey, "true");
-              favBtn.textContent = "★ Saved";
-              favBtn.style.color = "#f5b301";
-            }
-          };
-
-          // Message content
-          // Attach to message card
-          messageCard.appendChild(timestamp);
-          const messageText = document.createElement("p");
-          messageText.style.fontSize = "1.2em";
-          messageText.style.marginTop = "10px";
-          messageText.textContent = msg.content;
-
-          messageCard.appendChild(messageText);
-          messageCard.appendChild(favBtn);
-
-          if (msg.reactions) {
-            const reactionDisplay = document.createElement("div");
-            reactionDisplay.style.display = "flex";
-            reactionDisplay.style.gap = "8px";
-            reactionDisplay.style.marginTop = "10px";
-            reactionDisplay.style.flexWrap = "wrap";
-
-            const label = document.createElement("span");
-            label.textContent = "Reactions:";
-            label.style.fontWeight = "bold";
-            label.style.fontSize = "0.9em";
-            reactionDisplay.appendChild(label);
-
-            try {
-              const reactionData = JSON.parse(msg.reactions);
-              Object.entries(reactionData).forEach(([emoji, count]) => {
-                const tag = document.createElement("span");
-                tag.textContent = `${emoji} ${count}`;
-                tag.style.fontSize = "1.1em";
-                tag.style.padding = "2px 8px";
-                tag.style.borderRadius = "8px";
-                tag.style.background = "#eee";
-                tag.style.boxShadow = "inset 0 0 3px rgba(0,0,0,0.05)";
-                reactionDisplay.appendChild(tag);
-              });
-            } catch (err) {
-              console.error("Invalid reactions format", err);
+                container.prepend(notice);
+                setTimeout(() => notice.remove(), 5000);
+                return;
+              }
             }
 
-            messageCard.appendChild(reactionDisplay);
-          }
-          // Add card to messages-container
-          container.appendChild(messageCard);
-        });
+            showingFavorites = !showingFavorites;
+            localStorage.setItem("od_showingFavorites", showingFavorites);
+            goToRead(); // re-render
+          }); //scanned
 
-        const backButton = document.createElement("button");
-        backButton.textContent = "Back to Home";
-        backButton.style.marginTop = "20px";
-        backButton.onclick = () => window.location.reload();
-        container.appendChild(backButton);
+          // Display messages
+          messages.forEach((msg) => {
+            const favKey = `favorite-${msg.id}`;
+            if (showingFavorites && !localStorage.getItem(favKey)) return;
 
-        showGentleWelcome();
+            const messageCard = document.createElement("div");
+            messageCard.className = "message-card";
+
+            const timestamp = document.createElement("p");
+            timestamp.className = "timestamp";
+            timestamp.innerHTML = `<strong>Posted:</strong> ${
+              msg.timestamp ? formatTimestamp(msg.timestamp) : "Unknown time"
+            }`;
+
+            const favBtn = document.createElement("button");
+            favBtn.textContent = localStorage.getItem(favKey)
+              ? "★ Saved"
+              : "★ Save";
+            favBtn.className = localStorage.getItem(favKey)
+              ? "fav-btn saved"
+              : "fav-btn";
+
+            favBtn.onclick = () => {
+              if (localStorage.getItem(favKey)) {
+                localStorage.removeItem(favKey);
+                favBtn.textContent = "★ Save";
+                favBtn.className = "fav-btn";
+              } else {
+                localStorage.setItem(favKey, "true");
+                favBtn.textContent = "★ Saved";
+                favBtn.className = "fav-btn saved";
+              }
+            };
+
+            const messageText = document.createElement("p");
+            messageText.className = "message-text";
+            messageText.textContent = msg.content;
+
+            messageCard.appendChild(timestamp);
+            messageCard.appendChild(messageText);
+            messageCard.appendChild(favBtn);
+            container.appendChild(messageCard);
+          });
+
+          const backButton = document.createElement("button");
+          backButton.textContent = "← Back";
+          backButton.className = "back-button-alt";
+          backButton.onclick = () => goToPost();
+
+          container.appendChild(backButton);
+          showGentleWelcome();
+        }
       })
       .catch((error) => {
-        document.getElementById("loading-spinner").style.display = "none";
+        if (spinner) spinner.style.display = "none";
         console.error("Error fetching messages:", error);
         alert("Couldn't load messages. Please try again.");
       });

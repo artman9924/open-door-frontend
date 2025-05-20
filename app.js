@@ -1,5 +1,4 @@
 // 🕊️ Anonymous Account System — Open Door
-
 function generateAnonId() {
   return (
     "anon-" + Math.random().toString(36).substring(2) + Date.now().toString(36)
@@ -17,10 +16,43 @@ if (!localStorage.getItem("openDoorUserId")) {
   );
 }
 
+let selectedMood = null; //
+
 function goToPost() {
   document.querySelector(".button-group").style.display = "none";
   document.getElementById("postForm").style.display = "block";
+
+  // Only insert moodBar if it's not already there
+  if (!document.querySelector(".mood-bar")) {
+    const textarea = document.getElementById("messageInput");
+    const form = document.getElementById("postForm");
+
+    const moodBar = document.createElement("div");
+    moodBar.className = "mood-bar";
+    moodBar.textContent = "How are you feeling? ";
+
+    const moods = ["😔", "😐", "🙂", "😄"];
+    moods.forEach((emoji) => {
+      const btn = document.createElement("button");
+      btn.textContent = emoji;
+      btn.className = "mood-emoji";
+
+      btn.onclick = (e) => {
+        e.preventDefault();
+        document
+          .querySelectorAll(".mood-emoji")
+          .forEach((b) => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        selectedMood = emoji;
+      };
+
+      moodBar.appendChild(btn);
+    });
+
+    form.insertBefore(moodBar, textarea);
+  }
 }
+
 function cancelPost() {
   document.getElementById("postForm").style.display = "none";
   document.querySelector(".button-group").style.display = "block";
@@ -52,12 +84,13 @@ function submitMessage() {
     alert("Please write something before submitting!");
     return;
   }
+
   fetch(`${BASE_URL}/post-message`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ content: message }),
+    body: JSON.stringify({ content: message, mood: selectedMood || null }),
   })
     .then((response) => {
       if (!response.ok) {
@@ -76,6 +109,7 @@ function submitMessage() {
       alert("Error connecting to the server.");
     });
 }
+// Show welcome message when reading messages
 function showGentleWelcome() {
   const userId = localStorage.getItem("openDoorUserId");
   if (!userId) return;
@@ -99,11 +133,14 @@ function showGentleWelcome() {
   setTimeout(() => {
     welcome.style.opacity = "1";
   }, 300);
+  // Remove welcome message after timeout
+  setTimeout(() => welcome.remove(), 10000);
 }
 
 // Show Favorites toggle
 let showingFavorites = localStorage.getItem("od_showingFavorites") === "true";
 
+// Read Messages
 function goToRead() {
   document.getElementById("postForm").style.display = "none";
   document.getElementById("messages-container").innerHTML = ""; // Clear old messages
@@ -125,15 +162,7 @@ function goToRead() {
       filterToggle.textContent = showingFavorites
         ? "📜 Show All Messages"
         : "🔍 View Favorites Only";
-      filterToggle.style.margin = "10px 0";
-      filterToggle.style.padding = "6px 12px";
-      filterToggle.style.border = "1px solid #ccc";
-      filterToggle.style.borderRadius = "8px";
-      filterToggle.style.background = "#f8f8f8";
-      filterToggle.style.cursor = "pointer";
-      filterToggle.style.fontSize = "0.9em";
-      filterToggle.style.color = "#a58a5e";
-
+      filterToggle.className = "filter-toggle";
       filterToggle.addEventListener("click", () => {
         showingFavorites = !showingFavorites;
         localStorage.setItem("od_showingFavorites", showingFavorites);
@@ -163,12 +192,7 @@ function goToRead() {
         // Favorite button
         const favBtn = document.createElement("button");
         favBtn.textContent = "★ Save";
-        favBtn.style.fontSize = "0.9em";
-        favBtn.style.marginTop = "6px";
-        favBtn.style.background = "none";
-        favBtn.style.border = "none";
-        favBtn.style.cursor = "pointer";
-        favBtn.style.color = "#888";
+        favBtn.className = "fav-btn";
 
         if (localStorage.getItem(favKey)) {
           favBtn.textContent = "★ Saved";

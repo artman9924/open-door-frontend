@@ -130,3 +130,41 @@ button:hover {
 h1 {
   animation: fadeSlide 1s ease-out;
 }
+/* Mood Selector  */
+.mood-bar {
+  margin-bottom: 10px;
+  font-size: 1em;
+}
+
+.mood-emoji {
+  font-size: 1.5em;
+  margin-right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.mood-emoji.selected {
+  transform: scale(1.2);
+  border: 2px solid #888;
+  border-radius: 6px;
+}
+.filter-toggle {
+  margin: 10px 0;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f8f8f8;
+  cursor: pointer;
+  font-size: 0.9em;
+  color: #a58a5e;
+}
+.fav-btn {
+  font-size: "0.9em";
+  margin-top: "6px";
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888;
+}

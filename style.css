@@ -208,3 +208,16 @@ h1 {
     padding-bottom: 0.5rem;
   }
 }
+.back-button {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}

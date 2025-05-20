@@ -142,7 +142,7 @@ let showingFavorites = localStorage.getItem("od_showingFavorites") === "true";
 
 // Read Messages
 function goToRead() {
-  document.getElementById("postForm").style.display = "none";
+  // document.getElementById("postForm").style.display = "none"; // unneccessary?
   document.getElementById("messages-container").innerHTML = ""; // Clear old messages
   document.getElementById("loading-spinner").style.display = "block"; // Show loading spinner
 
@@ -150,8 +150,12 @@ function goToRead() {
     .then((response) => response.json())
     .then((messages) => {
       document.getElementById("loading-spinner").style.display = "none"; // Hide spinner once loaded
-
+      document.getElementById("read-section").style.display = "block";
+      document.getElementById("post-section").style.display = "none";
+      document.getElementById("about-section").style.display = "none";
+      document.getElementById("back-button").style.display = "block";
       const container = document.getElementById("messages-container");
+      container.innerHTML = ""; // Clear old content
 
       const title = document.createElement("h1");
       title.textContent = "Messages Shared on Open Door";

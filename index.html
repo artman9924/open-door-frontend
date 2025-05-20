@@ -11,38 +11,43 @@
       <h1>Welcome to Open Door</h1>
       <p>You are not alone. Choose a path:</p>
 
-      <div class="button-group">
-        <button onclick="goToPost()">Post a Message</button>
-        <button onclick="goToRead()">Read Messages</button>
-        <button onclick="window.location.href='about.html'">
-          About Open Door
-        </button>
-      </div>
+<div class="button-group">
+  <button onclick="goToPost()">Post a Message</button>
+  <button onclick="goToRead()">Read Messages</button>
+  <button onclick="window.location.href='about.html'">About Open Door</button>
+</div>
 
-      <div id="loading-spinner" style="display: none">
-        <p>Loading messages...</p>
-      </div>
+<!-- Fixed Back Button -->
+<button id="back-button" class="back-button" style="display: none;">← Back</button>
 
-      <div id="messages-container"></div>
+<!-- Spinner shown while loading messages -->
+<div id="loading-spinner" style="display: none">
+  <p>Loading messages...</p>
+</div>
 
-      <div id="postForm" style="display: none; margin-top: 30px">
-        <h2>Share Your Message</h2>
-        <textarea
-          id="messageInput"
-          placeholder="What's on your mind?"
-          rows="6"
-          style="width: 80%; padding: 10px"
-        ></textarea
-        ><br /><br />
-        <button onclick="submitMessage()">Submit</button>
-        <button onclick="cancelPost()" style="background-color: grey">
-          Cancel
-        </button>
-      </div>
-    </div>
+<!-- Read Messages Section -->
+<div id="read-section" style="display: none;">
+  <div id="messages-container"></div>
+</div>
 
-    <script src="app.js"></script>
-    <footer class="footer">
+<!-- Post Message Section -->
+<div id="post-section" style="display: none; margin-top: 30px;">
+  <h2>Share Your Message</h2>
+  <textarea
+    id="messageInput"
+    placeholder="What's on your mind?"
+    rows="6"
+    style="width: 80%; padding: 10px"
+  ></textarea>
+  <br /><br />
+  <button onclick="submitMessage()">Submit</button>
+  <button onclick="cancelPost()" style="background-color: grey">Cancel</button>
+</div>
+
+<script src="app.js"></script>
+
+<footer class="footer"></footer>
+
       <p>© 2025 Open Door. All rights reserved.</p>
     </footer>
   </body>

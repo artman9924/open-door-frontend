@@ -142,22 +142,6 @@ h1 {
   font-size: 0.9em;
   color: #a58a5e;
 }
-.fav-btn {
-  font-size: "0.9em";
-  margin-top: "6px";
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #888;
-}
-.fav-btn.saved {
-  font-size: "0.9em";
-  margin-top: "6px";
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #888;
-}
 .soft-notice {
   margin: 12px 0;
   padding: 10px;
@@ -249,4 +233,22 @@ h1 {
   align-items: center;
   margin-bottom: 0.5rem;
   gap: 1rem;
+}
+.card-footer {
+  display: flex;
+  align-items: right;
+  margin-top: 0.5rem;
+  gap: 1rem;
+}
+.fav-btn {
+  font-size: "0.85em";
+  color: #777;
+}
+.fav-btn.saved {
+  font-size: "0.85em";
+
+  background: none;
+  border: none;
+  color: #d4a700;
+  font-weight: bold;
 }

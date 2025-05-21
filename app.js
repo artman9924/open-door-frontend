@@ -253,7 +253,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const backButton = document.createElement("button");
           backButton.textContent = "← Back";
           backButton.className = "back-button-alt";
-          backButton.onclick = () => goToPost();
+          backButton.onclick = () => window.location.reload();
 
           container.appendChild(backButton);
           showGentleWelcome();

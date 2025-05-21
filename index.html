@@ -5,49 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Open Door</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="data:,">
+    <link rel="icon" href="data:," />
   </head>
   <body>
-    <div class="container">
+    <div class="container" id="home-intro">
       <h1>Welcome to Open Door</h1>
       <p>You are not alone. Choose a path:</p>
+    </div>
 
-<div class="button-group">
-  <button onclick="goToPost()">Post a Message</button>
-  <button onclick="goToRead()">Read Messages</button>
-  <button onclick="window.location.href='about.html'">About Open Door</button>
-</div>
+    <div class="button-group">
+      <button onclick="goToPost()">Post a Message</button>
+      <button onclick="goToRead()">Read Messages</button>
+      <button onclick="window.location.href='about.html'">
+        About Open Door
+      </button>
+    </div>
 
-<!-- Fixed Back Button -->
-<button id="back-button" class="back-button" style="display: none;">← Back</button>
+    <!-- Spinner shown while loading messages -->
+    <div id="loading-spinner" style="display: none">
+      <p>Loading messages...</p>
+    </div>
 
-<!-- Spinner shown while loading messages -->
-<div id="loading-spinner" style="display: none">
-  <p>Loading messages...</p>
-</div>
+    <!-- Read Messages Section -->
+    <div id="read-section" style="display: none">
+      <div id="messages-container"></div>
+    </div>
 
-<!-- Read Messages Section -->
-<div id="read-section" style="display: none;">
-  <div id="messages-container"></div>
-</div>
+    <!-- Post Message Section -->
+    <div id="postForm" style="display: none; margin-top: 30px">
+      <h2>Share Your Message</h2>
+      <textarea
+        id="messageInput"
+        placeholder="What's on your mind?"
+        rows="6"
+        style="width: 80%; padding: 10px"
+      ></textarea>
+      <br /><br />
+      <button onclick="submitMessage()">Submit</button>
+      <button onclick="cancelPost()" style="background-color: grey">
+        Cancel
+      </button>
+    </div>
 
-<!-- Post Message Section -->
-<div id="postForm" style="display: none; margin-top: 30px;">
-  <h2>Share Your Message</h2>
-  <textarea
-    id="messageInput"
-    placeholder="What's on your mind?"
-    rows="6"
-    style="width: 80%; padding: 10px"
-  ></textarea>
-  <br /><br />
-  <button onclick="submitMessage()">Submit</button>
-  <button onclick="cancelPost()" style="background-color: grey">Cancel</button>
-</div>
-
-<footer class="footer">
-  <p>© 2025 Open Door. All rights reserved.</p>
-</footer>
-<script src="app.js"></script>
-</body>
+    <footer class="footer">
+      <p>© 2025 Open Door. All rights reserved.</p>
+    </footer>
+    <script src="app.js"></script>
+  </body>
 </html>

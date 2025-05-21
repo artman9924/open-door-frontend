@@ -18,10 +18,11 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.getItem("openDoorUserId")
     );
   }
+  const homeIntro = document.getElementById("home-intro");
   let selectedMood = null; //
   // post messages
   window.goToPost = function () {
-    const homeIntro = document.getElementById("home-intro");
+    // const homeIntro = document.getElementById("home-intro");
     if (homeIntro) homeIntro.style.display = "none";
 
     document.querySelector(".button-group").style.display = "none";
@@ -148,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Read Messages
   window.goToRead = function () {
-    const homeIntro = document.getElementById("home-intro");
+    // const homeIntro = document.getElementById("home-intro");
     const buttonGroup = document.querySelector(".button-group");
     const postForm = document.getElementById("postForm");
     const readSection = document.getElementById("read-section");

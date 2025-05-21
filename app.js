@@ -18,10 +18,12 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.getItem("openDoorUserId")
     );
   }
-
+  const homeIntro = document.getElementById("home-intro"); //headers for index page
   let selectedMood = null; //
-
+  // post messages
   window.goToPost = function () {
+    if (homeIntro) homeIntro.style.display = "none";
+
     document.querySelector(".button-group").style.display = "none";
     document.getElementById("postForm").style.display = "block";
 
@@ -140,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(() => welcome.remove(), 10000);
   }
 
-  // Show Favorites toggle
+  // Show Favorites toggle for use in goToRead function
   let showingFavorites = localStorage.getItem("od_showingFavorites") === "true";
 
   // Read Messages
@@ -156,6 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (postForm) postForm.style.display = "none";
     if (readSection) readSection.style.display = "block";
     if (spinner) spinner.style.display = "block";
+    if (homeIntro) homeIntro.style.display = "none";
     // if (backButton) backButton.style.display = "block";
 
     // Clear previous messages

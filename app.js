@@ -257,8 +257,8 @@ document.addEventListener("DOMContentLoaded", function () {
             messageText.className = "message-text";
             messageText.textContent = msg.content;
 
-            headerRow.appendChild(timestamp);
             headerRow.appendChild(moodSpan);
+            headerRow.appendChild(timestamp);
 
             messageCard.appendChild(headerRow);
             // messageCard.appendChild(timestamp);

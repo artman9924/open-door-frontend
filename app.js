@@ -156,6 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Show Favorites toggle for use in goToRead function
   let showingFavorites = localStorage.getItem("od_showingFavorites") === "true";
+  if (showingFavorites === null) showingFavorites = false;
 
   // Read Messages
   window.goToRead = function () {

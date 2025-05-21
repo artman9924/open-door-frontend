@@ -250,15 +250,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }`;
 
             const favBtn = document.createElement("button");
-            favBtn.textContent = localStorage.getItem(favKey)
-              ? "★ Saved"
-              : "★ Save";
-            favBtn.className = localStorage.getItem(favKey)
-              ? "fav-btn saved"
-              : "fav-btn";
+            const isSaved = localStorage.getItem(favKey);
+
+            favBtn.textContent = isSaved ? "★ Saved" : "★ Save";
+            favBtn.className = isSaved ? "fav-btn saved" : "fav-btn";
 
             favBtn.onclick = () => {
-              if (localStorage.getItem(favKey)) {
+              const currentlySaved = localStorage.getItem(favKey);
+              if (currentlySaved) {
                 localStorage.removeItem(favKey);
                 favBtn.textContent = "★ Save";
                 favBtn.className = "fav-btn";

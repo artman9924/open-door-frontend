@@ -234,20 +234,25 @@ h1 {
   margin-bottom: 0.5rem;
   gap: 1rem;
 }
-.card-footer {
+/* .card-footer {
   display: flex;
   align-items: right;
   margin-top: 0.5rem;
   gap: 1rem;
-}
+} */
 .fav-btn {
-  font-size: "0.85em";
-  color: #777;
-  cursor: pointer;
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 2px 6px;
+  background: none;
   border: none;
+  font-size: 0.9em;
+  color: #a58a5e;
+  cursor: pointer;
+  text-align: left;
 }
+
 .fav-btn.saved {
-  font-size: "0.85em";
   color: #d4a700;
   font-weight: bold;
 }

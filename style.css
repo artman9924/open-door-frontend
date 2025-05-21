@@ -20,6 +20,7 @@ body {
   color: #777777;
   margin-top: 0;
   text-align: right;
+  white-space: nowrap;
 }
 
 .message-card {
@@ -247,4 +248,5 @@ h1 {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
+  gap: 1rem;
 }

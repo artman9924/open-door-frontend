@@ -261,8 +261,8 @@ document.addEventListener("DOMContentLoaded", function () {
             headerRow.appendChild(moodSpan);
 
             messageCard.appendChild(headerRow);
-            messageCard.appendChild(timestamp);
-            messageCard.appendChild(moodSpan);
+            // messageCard.appendChild(timestamp);
+            // messageCard.appendChild(moodSpan);
             messageCard.appendChild(messageText);
             messageCard.appendChild(favBtn);
             container.appendChild(messageCard);

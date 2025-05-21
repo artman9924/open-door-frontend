@@ -221,11 +221,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 return;
               }
-
-              showingFavorites = !showingFavorites;
-              localStorage.setItem("od_showingFavorites", showingFavorites);
-              goToRead(); // re-render
             }
+
+            showingFavorites = !showingFavorites;
+            localStorage.setItem("od_showingFavorites", showingFavorites);
+            goToRead(); // re-render
           }); //scanned
 
           // Display messages

@@ -45,11 +45,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
         btn.onclick = (e) => {
           e.preventDefault();
+
+          const alreadySelected = btn.classList.contains("selected");
+
+          // Clear all seletions first
           document
             .querySelectorAll(".mood-emoji")
             .forEach((b) => b.classList.remove("selected"));
-          btn.classList.add("selected");
-          selectedMood = emoji;
+
+          if (!alreadySelected) {
+            btn.classList.add("selected");
+            selectedMood = emoji;
+          } else {
+            // If it was already selected, deselet and clear mood
+            selectedMood = null;
+          }
         };
 
         moodBar.appendChild(btn);

@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
   window.cancelPost = function () {
     document.getElementById("postForm").style.display = "none";
     document.querySelector(".button-group").style.display = "block";
+    if (homeIntro) homeIntro.style.display = "block";
   };
   // const BASE_URL = "http://127.0.0.1:5000"; // local version
   const BASE_URL = "https://open-door-backend.onrender.com"; // live version

@@ -216,14 +216,15 @@ document.addEventListener("DOMContentLoaded", function () {
                   container.prepend(notice);
                   setTimeout(() => {
                     notice.remove();
-                   }, 5000);
+                  }, 5000);
+                }
                 return;
               }
-            }
 
-            showingFavorites = !showingFavorites;
-            localStorage.setItem("od_showingFavorites", showingFavorites);
-            goToRead(); // re-render
+              showingFavorites = !showingFavorites;
+              localStorage.setItem("od_showingFavorites", showingFavorites);
+              goToRead(); // re-render
+            }
           }); //scanned
 
           // Display messages

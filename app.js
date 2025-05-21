@@ -214,6 +214,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
           // Display messages
           messages.forEach((msg) => {
+            const headerRow = document.createElement("div");
+            headerRow.className = "card-header";
+
             const favKey = `favorite-${msg.id}`;
             if (showingFavorites && !localStorage.getItem(favKey)) return;
 
@@ -224,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
             moodSpan.className = "emoji";
             moodSpan.textContent = msg.mood || "";
 
-            const timestamp = document.createElement("p");
+            const timestamp = document.createElement("span");
             timestamp.className = "timestamp";
             timestamp.innerHTML = `<strong>Posted:</strong> ${
               msg.timestamp ? formatTimestamp(msg.timestamp) : "Unknown time"
@@ -254,6 +257,10 @@ document.addEventListener("DOMContentLoaded", function () {
             messageText.className = "message-text";
             messageText.textContent = msg.content;
 
+            headerRow.appendChild(moodSpan);
+            headerRow.appendChild(timestamp);
+
+            messageCard.appendChild(headerRow);
             messageCard.appendChild(timestamp);
             messageCard.appendChild(moodSpan);
             messageCard.appendChild(messageText);

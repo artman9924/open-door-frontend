@@ -18,7 +18,7 @@ body {
 .timestamp {
   font-size: 0.85rem;
   color: #777777;
-  margin-top: 5px;
+  margin-top: 0;
   text-align: right;
 }
 
@@ -239,9 +239,12 @@ h1 {
 .back-button-alt:hover {
   background-color: #f0f0f0;
 }
-.message-card .emoji {
-  margin-top: 5px
-  margin-bottom: 0.5rem;
+.emoji {
   font-size: 0.85rem;
-  display: block;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }

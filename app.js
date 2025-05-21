@@ -149,14 +149,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const postForm = document.getElementById("postForm");
     const readSection = document.getElementById("read-section");
     const spinner = document.getElementById("loading-spinner");
-    const backButton = document.getElementById("back-button");
+    // const backButton = document.getElementById("back-button");
 
     // Hide other UI parts
     if (buttonGroup) buttonGroup.style.display = "none";
     if (postForm) postForm.style.display = "none";
     if (readSection) readSection.style.display = "block";
     if (spinner) spinner.style.display = "block";
-    if (backButton) backButton.style.display = "block";
+    // if (backButton) backButton.style.display = "block";
 
     // Clear previous messages
     const container = document.getElementById("messages-container");

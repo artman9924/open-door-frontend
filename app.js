@@ -206,13 +206,17 @@ document.addEventListener("DOMContentLoaded", function () {
               );
 
               if (!hasFavorites) {
-                const notice = document.createElement("div");
-                notice.textContent =
-                  "You haven’t saved any favorites yet. Showing all messages instead.";
-                notice.className = "soft-notice";
+                // Prevent duplicate notices
+                if (!document.querySelector(".soft-notice")) {
+                  const notice = document.createElement("div");
+                  notice.textContent =
+                    "You haven’t saved any favorites yet. Showing all messages instead.";
+                  notice.className = "soft-notice";
 
-                container.prepend(notice);
-                setTimeout(() => notice.remove(), 5000);
+                  container.prepend(notice);
+                  setTimeout(() => {
+                    notice.remove();
+                   }, 5000);
                 return;
               }
             }

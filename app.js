@@ -220,6 +220,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const messageCard = document.createElement("div");
             messageCard.className = "message-card";
 
+            const moodSpan = document.createElement("span");
+            moodSpan.className = "emoji";
+            moodSpan.textContent = msg.mood || "";
+
             const timestamp = document.createElement("p");
             timestamp.className = "timestamp";
             timestamp.innerHTML = `<strong>Posted:</strong> ${
@@ -251,6 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
             messageText.textContent = msg.content;
 
             messageCard.appendChild(timestamp);
+            messageCard.appendChild(moodSpan);
             messageCard.appendChild(messageText);
             messageCard.appendChild(favBtn);
             container.appendChild(messageCard);

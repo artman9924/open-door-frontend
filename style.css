@@ -18,7 +18,7 @@ body {
 .timestamp {
   font-size: 0.85rem;
   color: #777777;
-  margin-top: 10px;
+  margin-top: 5px;
   text-align: right;
 }
 
@@ -216,20 +216,6 @@ h1 {
     padding-bottom: 0.5rem;
   }
 }
-/* .back-button {
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  background-color: #ffffffee;
-  color: #333;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-  cursor: pointer; */
-}
 .message-text {
   font-size: 1.2rem;
   margin-top: 0.75rem;
@@ -252,4 +238,9 @@ h1 {
 
 .back-button-alt:hover {
   background-color: #f0f0f0;
+}
+.message-card .emoji {
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  display: block;
 }

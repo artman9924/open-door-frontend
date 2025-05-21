@@ -24,6 +24,10 @@ body {
 }
 
 .message-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   background-color: #ffffff;
   padding: 20px;
   margin: 20px auto;
@@ -203,8 +207,7 @@ h1 {
 }
 .message-text {
   font-size: 1.2rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
+  margin-top: 0.75rem;
   line-height: 1.5;
   color: #222;
 }
@@ -242,18 +245,18 @@ h1 {
   gap: 1rem;
 } */
 .fav-btn {
-  display: inline;
-  margin-top: 0.5rem;
+  align-self: flex-start;
+  margin-top: auto; /* pushes it to the bottom of the card */
   padding: 0;
-  background: none;
   border: none;
+  background: none;
   font-size: 0.85em;
   color: #a58a5e;
   cursor: pointer;
-  text-align: left;
 }
 
 .fav-btn.saved {
+  font-size: 0.85em;
   color: #d4a700;
   font-weight: bold;
 }

@@ -240,6 +240,7 @@ h1 {
   background-color: #f0f0f0;
 }
 .message-card .emoji {
+  margin-top: 5px
   margin-bottom: 0.5rem;
   font-size: 0.85rem;
   display: block;

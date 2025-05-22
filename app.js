@@ -191,6 +191,26 @@ document.addEventListener("DOMContentLoaded", function () {
           title.textContent = "Messages Shared on Open Door";
           container.appendChild(title);
 
+          // 🌈 Mood Filter Bar
+          const moodFilter = document.createElement("div");
+          moodFilter.id = "mood-filter";
+          const moods = ["", "😔", "😐", "🙂", "😄"];
+          moods.forEach((mood) => {
+            const btn = document.createElement("button");
+            btn.textContent = mood || "All";
+            btn.dataset.mood = mood;
+            btn.className = "mood-button";
+            btn.addEventListener("click", () => {
+              selectedMood = mood;
+              const filtered = selectedMood
+                ? messages.filter((msg) => msg.mood === selectedMood)
+                : messages;
+              renderMessages(filtered);
+            });
+            moodFilter.appendChild(btn);
+          });
+          container.appendChild(moodFilter);
+
           // View Favorites button
           const filterToggle = document.createElement("button");
           filterToggle.textContent = showingFavorites

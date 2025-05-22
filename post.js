@@ -21,7 +21,9 @@ window.goToPost = function () {
       btn.onclick = (e) => {
         e.preventDefault();
         const alreadySelected = btn.classList.contains("selected");
-        document.querySelectorAll(".mood-emoji").forEach((b) => b.classList.remove("selected"));
+        document
+          .querySelectorAll(".mood-emoji")
+          .forEach((b) => b.classList.remove("selected"));
         selectedMood = !alreadySelected ? emoji : null;
         if (!alreadySelected) btn.classList.add("selected");
       };
@@ -37,4 +39,30 @@ window.cancelPost = function () {
   document.getElementById("postForm").style.display = "none";
   document.querySelector(".button-group").style.display = "block";
   if (homeIntro) homeIntro.style.display = "block";
+};
+window.submitMessage = function () {
+  const messageInput = document.getElementById("messageInput");
+  const content = messageInput.value.trim();
+
+  if (!content) {
+    alert("Please write a message.");
+    return;
+  }
+
+  fetch("https://open-door-backend.onrender.com/post-message", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ content, mood: selectedMood }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status) {
+        alert("Message posted!");
+        messageInput.value = "";
+        window.location.goToRead();
+      } else {
+        alert("Error posting message.");
+      }
+    })
+    .catch(() => alert("Failed to connect to the server."));
 };

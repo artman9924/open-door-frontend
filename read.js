@@ -13,19 +13,12 @@ window.goToRead = function () {
   if (homeIntro) homeIntro.style.display = "none";
 
   // if (container) container.innerHTML = "";
-
   fetch(`${BASE_URL}/get-messages`)
     .then((response) => response.json())
     .then((messages) => {
       if (spinner) spinner.style.display = "none";
       if (!container) return;
       container.innerHTML = "";
-
-      // sub-container for message list
-      const messageList = document.createElement("div");
-      messageList.id = "message-list";
-      container.appendChild(messageList);
-
       const title = document.createElement("h1");
       title.textContent = "Messages Shared on Open Door";
       container.appendChild(title);
@@ -57,6 +50,11 @@ window.goToRead = function () {
         renderMessages(filterMessages(messages));
       });
       container.appendChild(filterToggle);
+
+      // sub-container for message list
+      const messageList = document.createElement("div");
+      messageList.id = "message-list";
+      container.appendChild(messageList);
 
       renderMessages(filterMessages(messages));
     })

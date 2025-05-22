@@ -12,7 +12,7 @@ window.goToRead = function () {
   if (spinner) spinner.style.display = "block";
   if (homeIntro) homeIntro.style.display = "none";
 
-  if (container) container.innerHTML = "";
+  // if (container) container.innerHTML = "";
 
   fetch(`${BASE_URL}/get-messages`)
     .then((response) => response.json())

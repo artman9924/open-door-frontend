@@ -54,15 +54,22 @@ window.submitMessage = function () {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ content, mood: selectedMood }),
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) throw new Error("Server returned error");
+      return res.json();
+    })
     .then((data) => {
       if (data.status) {
         alert("Message posted!");
         messageInput.value = "";
-        window.location.goToRead();
+        // Use timeout to allow alert to complete before reload
+        setTimeout(() => window.location.reload(), 100);
       } else {
         alert("Error posting message.");
       }
     })
-    .catch(() => alert("Failed to connect to the server."));
+    .catch((err) => {
+      console.error("Post failed:", err);
+      alert("Failed to connect to the server.");
+    });
 };

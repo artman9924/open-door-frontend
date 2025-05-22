@@ -4,15 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Open Door</title>
+
+    <!-- 🌐 Global Styles -->
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="data:," />
   </head>
+
   <body>
+    <!-- 🏠 Welcome Section -->
     <div class="container" id="home-intro">
       <h1>Welcome to Open Door</h1>
       <p>You are not alone. Choose a path:</p>
     </div>
 
+    <!-- 🔘 Main Navigation Buttons -->
     <div class="button-group">
       <button onclick="goToPost()">Post a Message</button>
       <button onclick="goToRead()">Read Messages</button>
@@ -21,17 +26,17 @@
       </button>
     </div>
 
-    <!-- Spinner shown while loading messages -->
+    <!-- ⏳ Loading Spinner -->
     <div id="loading-spinner" style="display: none">
       <p>Loading messages...</p>
     </div>
 
-    <!-- Read Messages Section -->
+    <!-- 📖 Read Messages Section -->
     <div id="read-section" style="display: none">
       <div id="messages-container"></div>
     </div>
 
-    <!-- Post Message Section -->
+    <!-- 📝 Post Message Section -->
     <div id="postForm" style="display: none; margin-top: 30px">
       <h2>Share Your Message</h2>
       <textarea
@@ -47,9 +52,16 @@
       </button>
     </div>
 
+    <!-- 🔻 Footer -->
     <footer class="footer">
       <p>© 2025 Open Door. All rights reserved.</p>
     </footer>
-    <script src="app.js"></script>
+
+    <!-- ⚙️ JavaScript Modules (Order Matters) -->
+    <script src="setup.js"></script>
+    <script src="utils.js"></script>
+    <script src="post.js"></script>
+    <script src="render.js"></script>
+    <script src="read.js"></script>
   </body>
 </html>

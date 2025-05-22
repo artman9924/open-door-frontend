@@ -21,6 +21,11 @@ window.goToRead = function () {
       if (!container) return;
       container.innerHTML = "";
 
+      // sub-container for message list
+      const messageList = document.createElement("div");
+      messageList.id = "message-list";
+      container.appendChild(messageList);
+
       const title = document.createElement("h1");
       title.textContent = "Messages Shared on Open Door";
       container.appendChild(title);

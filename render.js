@@ -1,6 +1,7 @@
 // 💬 RENDER MESSAGES
 function renderMessages(messages) {
-  const container = document.getElementById("messages-container");
+  const container = document.getElementById("message-list");
+  if (!container) return;
   container.innerHTML = "";
 
   messages.forEach((msg) => {

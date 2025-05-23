@@ -1,7 +1,8 @@
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("postForm");
-  const input = document.getElementById("messageInput");
-  const moodSelect = document.getElementById("moodSelect");
+  const input = document.getElementById("postInput");
+  const moodSelect = document.getElementById("postMood");
   const submitButton = form.querySelector("button[type='submit']");
 
   let cooldownTimeout;
@@ -20,15 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await fetch("/post-message", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify({ content, mood }),
+        body: JSON.stringify({ content, mood })
       });
 
       if (response.status === 429) {
-        alert(
-          "You're posting too quickly. Please wait 30 seconds before trying again."
-        );
+        alert("You're posting too quickly. Please wait 30 seconds before trying again.");
         startCooldown();
         return;
       }

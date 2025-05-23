@@ -59,7 +59,7 @@ window.submitMessage = function () {
         alert(
           "You're posting too quickly. Please wait 30 seconds before trying again."
         );
-        return; // exits early, prevents following code from running
+        return Promise.reject("Rate limit"); // early exit
       }
 
       if (!res.ok) {
@@ -68,18 +68,17 @@ window.submitMessage = function () {
 
       return res.json();
     })
-
     .then((data) => {
       if (data.status) {
         alert("Message posted!");
         messageInput.value = "";
-        // Use timeout to allow alert to complete before reload
         setTimeout(() => window.location.reload(), 100);
       } else {
         alert("Error posting message.");
       }
     })
     .catch((err) => {
+      if (err === "Rate limit") return; // suppress extra alert/log
       console.error("Post failed:", err);
       alert("Failed to connect to the server.");
     });

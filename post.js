@@ -59,11 +59,16 @@ window.submitMessage = function () {
         alert(
           "You're posting too quickly. Please wait 30 seconds before trying again."
         );
-        return;
+        return; // exits early, prevents following code from running
       }
-      if (!res.ok) throw new Error("Server returned error");
+
+      if (!res.ok) {
+        throw new Error("Server returned error");
+      }
+
       return res.json();
     })
+
     .then((data) => {
       if (data.status) {
         alert("Message posted!");
